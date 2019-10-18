@@ -1,4 +1,4 @@
-name: "Package Debian"
+name: "Push and Pull"
 
 # WIP
 on:

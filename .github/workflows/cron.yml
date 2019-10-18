@@ -1,0 +1,30 @@
+name: "Package Debian"
+
+on:
+  schedule:
+    - cron:  '0 0 * * *'
+
+jobs:
+  build:
+    name: CRON
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.7'
+      - name: Install Sphinx
+        run: |
+          pip install sphinx==2.2.0
+      - name: Install depended packages
+        run: |
+          sudo apt install autoconf-archive devscripts bison
+      - name: Generate configure
+        run: |
+          cmake .
+      - name: Build
+        run: |
+          make
